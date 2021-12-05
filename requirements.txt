@@ -11,9 +11,6 @@ Flask-Security==3.0.0
 Flask-SocketIO==4.3.2
 Flask-SQLAlchemy
 Flask-WTF
-gevent
-gevent-websocket==0.10.1
-greenlet
 gunicorn==20.1.0
 mysqlclient==2.1.0
 numpy
