@@ -1,0 +1,13 @@
+[Unit]
+Description=Gunicorn instance to serve Simple IOT Server
+After=network.target
+
+[Service]
+User=ubuntu
+Group=www-data
+WorkingDirectory=/home/ubuntu/Simple-IOT-Server/Simple-IoT-Server
+Environment="PATH=/home/ubuntu/Simple-IOT-Server/env/bin"
+ExecStart=/home/ubuntu/Simple-IOT-Server/env/bin/gunicorn --bind 0.0.0.0:5000 --worker-class eventlet -w 1 run:app
+
+[Install]
+WantedBy=multi-user.target
