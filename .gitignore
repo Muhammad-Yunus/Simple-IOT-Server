@@ -1,2 +1,3 @@
-**/instance/config.py
-**env/*
+**instance/config.py
+**env/
+**.pyc

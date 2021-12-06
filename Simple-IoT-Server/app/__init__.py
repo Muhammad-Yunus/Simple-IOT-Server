@@ -26,7 +26,7 @@ mqtt = Mqtt()
 mqtt.init_app(app)
 
 # Create SocketIO Instance
-socketio = SocketIO(app, async_mode="eventlet")
+socketio = SocketIO(app, async_mode="eventlet", cors_allowed_origins="*")
 
 # Late import views (Common)
 from app.views.home import *

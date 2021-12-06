@@ -86,6 +86,8 @@
                                                     return item >= filter_timedelta
                                                 })
                         window.Chart_{{ _CHART_.name }}.data.labels;
+                    
+                        
                     }
                 }
             }
@@ -137,6 +139,13 @@
             {% endfor %}
             toastr.success("Chart cleared successfully!");
         });
+
+        // save filter data in global object
+        window.filter_date = {};
+        window.filter_date.is_quick_range = {{ "true" if filter_data.quick_range.data else "false" }};
+        window.filter_date.data = "{{ filter_data.data.data }}";
+        window.filter_date.from_date = "{{ filter_data.from_date.data }}";
+        window.filter_date.to_date = "{{ filter_data.to_date.data }}";
     });
 </script>
 {%- endmacro %}

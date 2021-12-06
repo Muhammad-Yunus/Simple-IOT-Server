@@ -61,6 +61,38 @@
       data: Data,
       options: Options
     })
+    
+    // update time unit
+    if (hasOwnNestedProperty(window, 'filter_date')){
+      if (hasOwnNestedProperty(window.Chart_{{ _CHART_.name }}, 'config.options.scales.xAxes[0].time.unit')){
+        var num_second = 0;
+        if(window.filter_date.is_quick_range) {
+            var quick_range_data  = window.filter_date.data; 
+            var code              = quick_range_data.slice(-1);
+            var num               =  parseInt(quick_range_data.slice(0, -1));
+            num_second            = moment.duration(num, code).as('seconds');
+        }
+        else {
+            var from_timestamp = Date.parse(window.filter_date.from_date)/1000;
+            var to_timestamp = Date.parse(window.filter_date.to_date)/1000;
+            num_second = to_timestamp - from_timestamp;
+
+        }
+
+        // choose unit time
+        var unit_time = 'second';
+        if (num_second <= 300) unit_time = 'second'; // under 5m
+        else if (num_second <= 3600) unit_time = 'minute'; // under 1 hour
+        else if (num_second <= 172800) unit_time = 'hour'; // under 2 day
+        else if (num_second <= 2592000) unit_time = 'day'; // under 90 day
+        else if (num_second <= 31104000) unit_time = 'week'; // under 1 year
+        
+        window.Chart_{{ _CHART_.name }}.config.options.scales.xAxes[0].time.unit = unit_time;
+        window.Chart_{{ _CHART_.name }}.update();
+        console.log(unit_time);
+      }
+    }
+    
   });
 </script>
 {%- endmacro %}
